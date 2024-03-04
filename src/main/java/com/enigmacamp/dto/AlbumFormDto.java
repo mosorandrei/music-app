@@ -1,31 +1,29 @@
 package com.enigmacamp.dto;
 
+import com.enigmacamp.enums.Genre;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+import jakarta.validation.constraints.Size;
 import java.sql.Date;
 
-import javax.validation.constraints.Size;
-
-import com.enigmacamp.enums.Genre;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-@ApiModel(value = "Album DTO for create new album")
+@Schema(description = "Album DTO for create new album")
 public class AlbumFormDto {
 	
 	@Size(max = 100, message = "Name of album can't more than 100 character")
-	@ApiModelProperty(notes = "Name of the album", required = true, position = 0)
+	@Schema(description = "Name of the album", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String name;
 	
 	@Size(min = 4, max = 4, message = "Year of release must min and max = 4")
-	@ApiModelProperty(notes = "Year of release the album", required = true, position = 1, example = "2020-01-01")
+	@Schema(description = "Year of release the album", requiredMode = Schema.RequiredMode.REQUIRED, example = "2020-01-01")
 	private Date releaseDate;
 	
 	@Size(message = "Genre of albums")
-	@ApiModelProperty(notes = "Genre of albums", required = true, position = 2)
+	@Schema(description = "Genre of albums", requiredMode = Schema.RequiredMode.REQUIRED)
 	private Genre genre;
 	
 	@Size(message = "Insert valid singer id to successfully create the album")
-	@ApiModelProperty(notes = "Singer identifier of the album", required = true, position = 3)
+	@Schema(description = "Singer identifier of the album", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String singerId;
 	
 	public AlbumFormDto() {

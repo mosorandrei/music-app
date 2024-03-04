@@ -2,6 +2,9 @@ package com.enigmacamp.controllers;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,21 +23,19 @@ import com.enigmacamp.dto.CommonResponse;
 import com.enigmacamp.dto.SongFormDto;
 import com.enigmacamp.entities.Song;
 import com.enigmacamp.utils.ObjectMapperUtils;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+;
 import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("songs")
-@Api(tags = "Songs")
+@Tag(name = "Songs")
 public class SongController {
 
 	@Autowired
 	SongDao songDao;
 
 	@GetMapping("")
-	@ApiOperation(value = "Return list of song.", code = 200)
+	@Operation(summary = "Return list of song.",  responses = {@ApiResponse(responseCode = "200")})
 	public ResponseEntity<CommonResponse<List<Song>>> findAll(@RequestParam(required = false) String title) {
 
 		if (title != null) {
@@ -47,7 +48,7 @@ public class SongController {
 	}
 
 	@GetMapping("/{id}")
-	@ApiOperation(value = "Return a song by their identifier. 404 if does not exist.", code = 200)
+	@Operation(summary = "Return a song by their identifier. 404 if does not exist.", responses = {@ApiResponse(responseCode = "200")})
 	public ResponseEntity<CommonResponse<Song>> findById(@PathVariable String id) throws NotFoundException {
 
 		Song song = songDao.findById(id);
@@ -56,7 +57,7 @@ public class SongController {
 	}
 
 	@PostMapping("")
-	@ApiOperation("Create new songs.")
+	@Operation(summary = "Create new songs.")
 	public ResponseEntity<CommonResponse<Song>> create(@RequestBody SongFormDto form) throws NotFoundException {
 
 		Song song = songDao.create(form);
@@ -66,7 +67,7 @@ public class SongController {
 	}
 
 	@PutMapping("")
-	@ApiOperation("Update a song.")
+	@Operation(summary = "Update a song.")
 	public ResponseEntity<CommonResponse<Song>> update(@RequestBody SongFormDto song) throws NotFoundException {
 
 		Song updatedSong = songDao.update(ObjectMapperUtils.map(song, Song.class));
@@ -75,7 +76,7 @@ public class SongController {
 	}
 
 	@DeleteMapping("/{id}")
-	@ApiOperation("Delete song by their identifier.")
+	@Operation(summary = "Delete song by their identifier.")
 	public ResponseEntity<CommonResponse<Song>> delete(@PathVariable String id) throws NotFoundException {
 
 		songDao.delete(id);

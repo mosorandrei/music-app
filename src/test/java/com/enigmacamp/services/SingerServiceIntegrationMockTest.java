@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -31,7 +31,7 @@ public class SingerServiceIntegrationMockTest {
     @Mock
     private SingerRepository repo;
 
-    @Before
+    @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
@@ -62,7 +62,7 @@ public class SingerServiceIntegrationMockTest {
         List<Singer> singerList = service.findAll();
         int expected = singers.size();
 
-        Assert.assertEquals(expected, singerList.size());
+        Assertions.assertEquals(expected, singerList.size());
     }
 
     @Test
@@ -80,11 +80,11 @@ public class SingerServiceIntegrationMockTest {
 
         Singer actualSinger = service.findById("01");
 
-        Assert.assertEquals("01", actualSinger.getId());
-        Assert.assertEquals("Edi", actualSinger.getFirstName());
-        Assert.assertEquals("Murwanto", actualSinger.getLastName());
-        Assert.assertEquals(Date.valueOf("2000-01-01"), actualSinger.getBirthDate());
-        Assert.assertEquals(Gender.MALE, actualSinger.getGender());
+        Assertions.assertEquals("01", actualSinger.getId());
+        Assertions.assertEquals("Edi", actualSinger.getFirstName());
+        Assertions.assertEquals("Murwanto", actualSinger.getLastName());
+        Assertions.assertEquals(Date.valueOf("2000-01-01"), actualSinger.getBirthDate());
+        Assertions.assertEquals(Gender.MALE, actualSinger.getGender());
     }
 
     @Test
@@ -102,7 +102,7 @@ public class SingerServiceIntegrationMockTest {
 
         // then
         Singer actual = service.create(singer);
-        Assert.assertEquals(singer, actual);
+        Assertions.assertEquals(singer, actual);
 
     }
 
@@ -147,10 +147,10 @@ public class SingerServiceIntegrationMockTest {
         Singer actual = service.update(singer);
 
         // then
-        Assert.assertEquals("Uchiha", actual.getFirstName());
-        Assert.assertEquals("Minako", actual.getLastName());
-        Assert.assertEquals(Date.valueOf("2009-02-12"), actual.getBirthDate());
-        Assert.assertEquals(Gender.FEMALE, actual.getGender());
+        Assertions.assertEquals("Uchiha", actual.getFirstName());
+        Assertions.assertEquals("Minako", actual.getLastName());
+        Assertions.assertEquals(Date.valueOf("2009-02-12"), actual.getBirthDate());
+        Assertions.assertEquals(Gender.FEMALE, actual.getGender());
     }
 
     @Test

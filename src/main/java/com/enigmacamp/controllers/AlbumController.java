@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -30,14 +32,11 @@ import com.enigmacamp.dto.CommonResponse;
 import com.enigmacamp.entities.Album;
 import com.enigmacamp.enums.Genre;
 import com.enigmacamp.utils.ObjectMapperUtils;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("albums")
-@Api(tags = "Albums")
+@Tag(name = "Albums")
 public class AlbumController {
 
 	@Autowired
@@ -50,7 +49,7 @@ public class AlbumController {
 	public String uploadDir;
 
 	@GetMapping("")
-	@ApiOperation(value = "Return list of albums.")
+	@Operation(summary = "Return list of albums.")
 	public ResponseEntity<CommonResponse<List<Album>>> findAll(
 			@RequestParam(required = false, name = "genre") Genre genre,
 			@RequestParam(required = false, name = "name") String name) {
@@ -67,7 +66,7 @@ public class AlbumController {
 	}
 
 	@GetMapping("/{id}")
-	@ApiOperation(value = "Return albums by their identifier. 404 it does not exist.")
+	@Operation(summary = "Return albums by their identifier. 404 it does not exist.")
 	public ResponseEntity<CommonResponse<Album>> findById(@PathVariable String id) throws NotFoundException {
 
 		Album album = albumDao.findById(id);
@@ -76,7 +75,7 @@ public class AlbumController {
 	}
 
 	@PostMapping("")
-	@ApiOperation(value = "Create new albums.")
+	@Operation(summary = "Create new albums.")
 	public ResponseEntity<CommonResponse<Album>> create(@RequestBody AlbumFormDto form) throws NotFoundException {
 
 		Album createdAlbum = albumDao.create(form);
@@ -86,7 +85,7 @@ public class AlbumController {
 	}
 
 	@PutMapping("")
-	@ApiOperation(value = "Update an albums.")
+	@Operation(summary = "Update an albums.")
 	public ResponseEntity<CommonResponse<Album>> update(@RequestBody AlbumDto album) throws NotFoundException {
 
 		Album updatedAlbum = albumDao.update( ObjectMapperUtils.map(album, Album.class));
@@ -95,7 +94,7 @@ public class AlbumController {
 	}
 
 	@DeleteMapping("/{id}")
-	@ApiOperation(value = "Delete an albums by their identifier.")
+	@Operation(summary = "Delete an albums by their identifier.")
 	public ResponseEntity<CommonResponse<Album>> delete(@PathVariable String id) throws NotFoundException {
 
 		albumDao.delete(id);

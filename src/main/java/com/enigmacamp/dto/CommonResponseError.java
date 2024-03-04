@@ -1,13 +1,13 @@
 package com.enigmacamp.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CommonResponseError {
 
-	@ApiModelProperty(value = "Response status code.", position = 0)
+	@Schema(description = "Response status code.")
 	private String status;
 	
-	@ApiModelProperty(value = "Response message", position = 1)
+	@Schema(description = "Response message")
 	private String message;
 
 	public CommonResponseError() {

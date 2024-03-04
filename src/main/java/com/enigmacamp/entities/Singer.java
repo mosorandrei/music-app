@@ -4,16 +4,8 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,36 +14,33 @@ import com.enigmacamp.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 @Entity
 @Table(name = "singers")
-@ApiModel(value = "Class representing singer.")
+@Schema(description = "Class representing singer.")
 public class Singer {
 	
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "uuid")
-	@ApiModelProperty(notes = "Unique identifier of singer. No two singers can have the same id.", required = true, position = 0)
+	@Schema(description = "Unique identifier of singer. No two singers can have the same id.", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String id;
 	
 	@Column(name = "first_name", length = 15, nullable = false)
-	@ApiModelProperty(notes = "First name of singer", required = true, position=1)
+	@Schema(description = "First name of singer", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String firstName;
 	
 	@Column(name = "last_name", length = 30, nullable = false)
-	@ApiModelProperty(notes = "Last name of singer", required = true, position = 2)
+	@Schema(description = "Last name of singer", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String lastName;
 	
 	@Column(name = "birth_date", nullable = false)
-	@ApiModelProperty(notes = "Birth Date of singer", dataType = "Date", required = true, position = 3 )
+	@Schema(description = "Birth Date of singer", type = "Date", requiredMode = Schema.RequiredMode.REQUIRED)
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gender", length = 8, nullable = false)
-	@ApiModelProperty(notes = "Gender of singer", dataType = "Enum", required = true, position = 4)
+	@Schema(description = "Gender of singer", type = "Enum", requiredMode = Schema.RequiredMode.REQUIRED)
 	private Gender gender;
 	
 	
@@ -65,7 +54,7 @@ public class Singer {
 	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true, mappedBy="singer")
-	@ApiModelProperty(notes = "List of album that haved by the singer", position = 5)
+	@Schema(description = "List of album that haved by the singer")
 	private List<Album> albums;
 	
 	public Singer() {

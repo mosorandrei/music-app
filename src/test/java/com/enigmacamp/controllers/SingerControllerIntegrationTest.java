@@ -5,13 +5,8 @@ import com.enigmacamp.entities.Singer;
 import com.enigmacamp.enums.Gender;
 import com.enigmacamp.repositories.SingerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.UnsupportedEncodingException;
-import java.sql.Date;
-import java.util.Optional;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +14,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@RunWith(SpringRunner.class)
+import java.io.UnsupportedEncodingException;
+import java.sql.Date;
+import java.util.Optional;
+
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class SingerControllerIntegrationTest {

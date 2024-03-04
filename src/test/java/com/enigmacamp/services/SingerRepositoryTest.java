@@ -1,23 +1,22 @@
 package com.enigmacamp.services;
 
-import java.sql.Date;
-import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import com.enigmacamp.App;
 import com.enigmacamp.config.DaoSpringConfig;
 import com.enigmacamp.entities.Singer;
 import com.enigmacamp.enums.Gender;
 import com.enigmacamp.repositories.SingerRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+import java.sql.Date;
+import java.util.List;
+
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @ContextConfiguration(classes = { App.class, DaoSpringConfig.class })
 public class SingerRepositoryTest {
@@ -40,7 +39,7 @@ public class SingerRepositoryTest {
 		Singer found = singerRepo.findById(singer.getId()).orElse(null);
 
 		// then
-		Assert.assertEquals(found, singer);
+		Assertions.assertEquals(found, singer);
 	}
 
 	@Test
@@ -57,8 +56,8 @@ public class SingerRepositoryTest {
 		Singer actual = singerRepo.save(singer);
 
 		// then
-		Assert.assertEquals(singer, actual);
-		Assert.assertNotNull(singer.getId());
+		Assertions.assertEquals(singer, actual);
+		Assertions.assertNotNull(singer.getId());
 	}
 
 	@Test
@@ -77,7 +76,7 @@ public class SingerRepositoryTest {
 		singerRepo.save(singer);
 
 		// then
-		Assert.assertEquals(singerRepo.findAll().size(), lengthBefore + 1);
+		Assertions.assertEquals(singerRepo.findAll().size(), lengthBefore + 1);
 	}
 
 	@Test
@@ -99,7 +98,7 @@ public class SingerRepositoryTest {
 		Singer expected = singerRepo.findById(singer.getId()).orElse(null);
 
 		// then
-		Assert.assertEquals(actual, expected);
+		Assertions.assertEquals(actual, expected);
 	}
 
 	@Test
@@ -126,7 +125,7 @@ public class SingerRepositoryTest {
 		List<Singer> singersActuals = singerRepo.findAll();
 
 		// then
-		Assert.assertEquals(singerRepo.findAll(), singersActuals);
+		Assertions.assertEquals(singerRepo.findAll(), singersActuals);
 	}
 
 	@Test
@@ -155,7 +154,7 @@ public class SingerRepositoryTest {
 		singerRepo.delete(singer);
 
 		// then
-		Assert.assertEquals(singerRepo.findAll().size(), lengthBefore - 1);
+		Assertions.assertEquals(singerRepo.findAll().size(), lengthBefore - 1);
 
 	}
 
@@ -184,7 +183,7 @@ public class SingerRepositoryTest {
 
 		// then
 		Singer actual = singerRepo.findById(singer.getId()).orElse(null);
-		Assert.assertNull(actual);
+		Assertions.assertNull(actual);
 
 	}
 

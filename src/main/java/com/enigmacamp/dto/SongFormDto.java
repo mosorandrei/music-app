@@ -1,24 +1,22 @@
 package com.enigmacamp.dto;
 
-import javax.validation.constraints.Null;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Null;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-@ApiModel(value = "Class for Request body of create new Songs.")
+@Schema(description = "Class for Request body of create new Songs.")
 public class SongFormDto {
 	
-	@ApiModelProperty(notes = "Title of songs.", position = 0)
+	@Schema(description = "Title of songs.")
 	private String title;
 	
-	@ApiModelProperty(notes = "Content of song", position = 1)
+	@Schema(description = "Content of song")
 	private String content;
 	
-	@ApiModelProperty(notes = "Singer id of song", position = 2)
+	@Schema(description = "Singer id of song")
 	private String singer;
 	
 	@Null
-	@ApiModelProperty(notes = "Album id of song", position = 3)
+	@Schema(description = "Album id of song")
 	private String album;
 	
 	public SongFormDto() {

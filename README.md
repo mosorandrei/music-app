@@ -44,7 +44,7 @@ java -jar <file-path>
 To show swagger API documentations, you can type this on web browser.
 
 ```
-http://localhost:8081/swagger-ui.html
+http://localhost:8081/swagger-ui/index.html
 ```
 
 ![Alt text](https://github.com/edhiuchiha/music-app/blob/master/assets/swagger.png)

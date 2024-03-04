@@ -1,18 +1,17 @@
 package com.enigmacamp.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-@ApiModel
+@Schema
 public class CommonResponse<T> {
 
-	@ApiModelProperty(value = "Response status code.", position = 0)
+	@Schema(description = "Response status code.")
 	private String status = "200";
 	
-	@ApiModelProperty(value = "Response message", position = 1)
+	@Schema(description = "Response message")
 	private String message = "Ok";
 	
-	@ApiModelProperty(value = "Response data", position = 2)
+	@Schema(description = "Response data")
 	private T data;
 
 	public CommonResponse() {

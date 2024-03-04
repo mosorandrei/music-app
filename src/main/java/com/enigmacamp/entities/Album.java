@@ -1,54 +1,40 @@
 package com.enigmacamp.entities;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import com.enigmacamp.enums.Genre;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.enigmacamp.enums.Genre;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "albums")
-@ApiModel(value = "Class representing albums")
+@Schema(description = "Class representing albums")
 public class Album {
 
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "uuid")
-	@ApiModelProperty(notes = "Unique identifier of album. No two albums can have the same id.", required = true, position = 0)
+	@Schema(description = "Unique identifier of album. No two albums can have the same id.", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String id;
 
 	@Column(length = 100, nullable = false)
-	@ApiModelProperty(notes = "Name of the album", required = true, position = 1)
+	@Schema(description = "Name of the album", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String name;
 	
 	@Column(nullable = false)
-	@ApiModelProperty(notes = "Date of release the album", required = true, position = 2)
+	@Schema(description = "Date of release the album", requiredMode = Schema.RequiredMode.REQUIRED)
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date releaseDate;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 50)
-	@ApiModelProperty("Genre of albums.")
+	@Schema(description = "Genre of albums.")
 	private Genre genre;
 	
 	@Column
@@ -59,17 +45,17 @@ public class Album {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
-	@Column(length = 150, nullable = true)
-	@ApiModelProperty(notes = "Image path of the album", required = true, position = 3)
+	@Column(length = 150)
+	@Schema(description = "Image path of the album", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String images;
 	
 	@ManyToOne
     @JoinColumn(name="singer", nullable=true)
-	@ApiModelProperty(notes = "Singer of the album", required = false, position = 4 )
+	@Schema(description = "Singer of the album", requiredMode = Schema.RequiredMode.REQUIRED)
 	private Singer singer;
 
 	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true, mappedBy="album")
-	@ApiModelProperty(notes = "List of songs in the album")
+	@Schema(description = "List of songs in the album")
 	private List<Song> songs;
 	
 	public Album() {

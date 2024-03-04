@@ -1,39 +1,30 @@
 package com.enigmacamp.entities;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "songs")
-@ApiModel(value = "Class representing songs")
+@Schema(description = "Class representing songs")
 public class Song {
 
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "uuid")
-	@ApiModelProperty(notes = "Unique identifier of song. No two songs can have the same id.", required = true, position = 0)
+	@Schema(description = "Unique identifier of song. No two songs can have the same id.", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String id;
 
 	@Column(name = "title", length = 100, nullable = false)
-	@ApiModelProperty(notes = "Title of song.", required = true, position = 1)
+	@Schema(description = "Title of song.", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String title;
 
 	@Column(name = "content", length = 1000, nullable = false)
-	@ApiModelProperty(notes = "Contents of song.", required = true, position = 2)
+	@Schema(description = "Contents of song.", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String content;
 	
 	@Column
@@ -46,12 +37,12 @@ public class Song {
 
 	@ManyToOne
 	@JoinColumn(name = "singer", nullable = false)
-	@ApiModelProperty(notes = "Singer of the song", required = true, position = 3)
+	@Schema(description = "Singer of the song", requiredMode = Schema.RequiredMode.REQUIRED)
 	private Singer singer;
 
 	@ManyToOne
 	@JoinColumn(name = "album", nullable = true)
-	@ApiModelProperty(notes = "Album of the song", required = false, position = 4)
+	@Schema(description = "Album of the song", requiredMode = Schema.RequiredMode.REQUIRED)
 	private Album album;
 	
 	public Song() {

@@ -2,6 +2,8 @@ package com.enigmacamp.controllers;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,20 +22,18 @@ import com.enigmacamp.dto.SingerDto;
 import com.enigmacamp.entities.Singer;
 import com.enigmacamp.utils.ObjectMapperUtils;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/singers")
-@Api(tags = "Singers")
+@Tag(name = "Singers")
 public class SingerController {
 
 	@Autowired
 	SingerDao singerDao;
 
 	@GetMapping("")
-	@ApiOperation(value = "Return list of singers.")
+	@Operation(summary = "Return list of singers.")
 	public ResponseEntity<CommonResponse<List<SingerDto>>> getAll() {
 
 		List<Singer> singers = singerDao.findAll();
@@ -43,7 +43,7 @@ public class SingerController {
 	}
 
 	@GetMapping("/{id}")
-	@ApiOperation(value = "Return singer by their identifier.")
+	@Operation(summary = "Return singer by their identifier.")
 	public ResponseEntity<CommonResponse<SingerDto>> findById(@PathVariable String id) throws NotFoundException {
 
 		Singer singer = singerDao.findById(id);
@@ -52,7 +52,7 @@ public class SingerController {
 	}
 
 	@GetMapping("/{id}/albums")
-	@ApiOperation(value = "Return list of album that haved by the singer")
+	@Operation(summary = "Return list of album that haved by the singer")
 	public ResponseEntity<CommonResponse<Singer>> findAlbumBySingerId(@PathVariable String id)
 			throws NotFoundException {
 
@@ -63,7 +63,7 @@ public class SingerController {
 	}
 
 	@GetMapping("/{singerId}/albums/{albumId}")
-	@ApiOperation(value = "Return spicific album that haved by the singer.")
+	@Operation(summary = "Return spicific album that haved by the singer.")
 	public ResponseEntity<CommonResponse<Singer>> findBySingerIdAndAlbumId(@PathVariable String singerId, @PathVariable String albumId) {
 
 		Singer singer = singerDao.findByIdAndAlbumId(singerId, albumId);
@@ -73,7 +73,7 @@ public class SingerController {
 	}
 
 	@PostMapping("")
-	@ApiOperation(value = "Create new singer.")
+	@Operation(summary = "Create new singer.")
 	public ResponseEntity<CommonResponse<SingerDto>> create(@RequestBody SingerDto singer) {
 
 		Singer newSinger = singerDao.create(ObjectMapperUtils.map(singer, Singer.class));
@@ -83,7 +83,7 @@ public class SingerController {
 	}
 
 	@PutMapping("")
-	@ApiOperation(value = "Update a singer.")
+	@Operation(summary = "Update a singer.")
 	public ResponseEntity<CommonResponse<SingerDto>> update(@RequestBody SingerDto singer) throws NotFoundException {
 
 		Singer updatedSinger = singerDao.update(ObjectMapperUtils.map(singer, Singer.class));
@@ -92,7 +92,7 @@ public class SingerController {
 	}
 
 	@DeleteMapping("/{id}")
-	@ApiOperation(value = "Delete singer by their identifier.")
+	@Operation(summary = "Delete singer by their identifier.")
 	public ResponseEntity<CommonResponse<SingerDto>> delete(@PathVariable String id) throws NotFoundException {
 
 		singerDao.delete(id);
